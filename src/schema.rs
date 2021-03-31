@@ -1,3 +1,5 @@
+use diesel::table;
+
 table! {
     user (user_id) {
         user_id -> Unsigned<Integer>,

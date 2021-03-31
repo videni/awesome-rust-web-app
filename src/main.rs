@@ -1,28 +1,25 @@
-use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
+use env_logger;
+use std::env;
+use actix;
 
-#[get("/")]
-async fn hello() -> impl Responder {
-    HttpResponse::Ok().body("Hello world!")
-}
+pub mod app;
+pub mod model;
+pub mod schema;
+pub mod message;
+pub mod db;
+mod error;
 
-#[post("/echo")]
-async fn echo(req_body: String) -> impl Responder {
-    HttpResponse::Ok().body(req_body)
-}
+fn main()  {
+    dotenv::dotenv().ok();
 
-async fn manual_hello() -> impl Responder {
-    HttpResponse::Ok().body("Hey there!")
-}
+    if env::var("RUST_LOG").ok().is_none() {
+        env::set_var("RUST_LOG", "conduit=debug,actix_web=info");
+    }
+    env_logger::init();
 
-#[actix_web::main]
-async fn main() -> std::io::Result<()> {
-    HttpServer::new(|| {
-        App::new()
-            .service(hello)
-            .service(echo)
-            .route("/hey", web::get().to(manual_hello))
-    })
-    .bind("127.0.0.1:8080")?
-    .run()
-    .await
+    let system = actix::System::new();
+
+    app::start();
+
+    system.run();
 }
