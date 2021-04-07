@@ -1,13 +1,26 @@
+#[macro_use]
+extern crate diesel;
+#[macro_use]
+extern crate failure;
+#[macro_use]
+extern crate lazy_static;
+#[macro_use]
+extern crate serde_json;
+#[macro_use]
+extern crate validator_derive;
+
 use env_logger;
 use std::env;
 use actix;
-
-pub mod app;
-pub mod model;
-pub mod schema;
-pub mod message;
-pub mod db;
+mod app;
+mod model;
+mod schema;
+mod message;
+mod db;
 mod error;
+mod prelude;
+mod message_handler;
+mod service;
 
 fn main()  {
     dotenv::dotenv().ok();

@@ -4,11 +4,12 @@ use diesel::{
     r2d2::PoolError,
     result::{DatabaseErrorKind, Error as DieselError},
 };
-use jwt::errors::{Error as JwtError, ErrorKind as JwtErrorKind};
+use jsonwebtoken::errors::{Error as JwtError, ErrorKind as JwtErrorKind};
 use libreauth::pass::ErrorCode as PassErrorCode;
-use serde_json::{Map as JsonMap, Value as JsonValue};
+use serde_json::{Map as JsonMap, Value as JsonValue, json};
 use std::convert::From;
 use validator::ValidationErrors;
+use failure::Fail;
 
 #[derive(Fail, Debug)]
 pub enum Error {

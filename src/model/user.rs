@@ -1,10 +1,11 @@
 use chrono::NaiveDateTime;
 use diesel::{Queryable, Identifiable};
+use crate::schema::user;
 
-#[derive(Debug, Queryable, Identifiable)]
+#[derive(Debug, Queryable,Identifiable)]
 #[primary_key(user_id)]
 #[column_name(user_id)]
-#[table_name = "user" ]
+#[table_name="user"]
 pub struct User {
     pub user_id: u32,
     pub username: String,

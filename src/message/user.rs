@@ -1,10 +1,11 @@
-use validator::Validate;
 use serde::Deserialize;
+use validator::{Validate};
 // use diesel::{Insertable, AsChangeset};
+use actix::prelude::{Message};
+use crate::prelude::Result;
 
-
-#[derive(Debug, Deserialize, Validate)]
-pub struct LoginUser {
+#[derive(Debug, Validate, Deserialize)]
+pub struct Login {
     #[validate(length(
         min = "6",
         max = "30",
@@ -17,6 +18,10 @@ pub struct LoginUser {
         message = "验证失败：密码长度必须为8-30个字符"
     ))]
     pub password: String,
+}
+
+impl Message for Login {
+    type Result = Result<()>;
 }
 
 // #[derive(Debug, Insertable)]

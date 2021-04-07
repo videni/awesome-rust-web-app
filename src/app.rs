@@ -1,4 +1,5 @@
-use crate::db::{new_pool, DbExecutor};
+use crate::db::new_pool;
+use crate::message_handler::MessageHandler;
 use actix::prelude::{Addr, SyncArbiter};
 use actix_web::{
     middleware::Logger,
@@ -14,7 +15,7 @@ use std::env;
 mod user;
 
 pub struct AppState {
-    pub db: Addr<DbExecutor>,
+    pub message_handler: Addr<MessageHandler>,
 }
 
 fn index(_state: Data<AppState>, _req: HttpRequest) -> &'static str {
@@ -26,20 +27,22 @@ pub fn start() {
 
     let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
     let database_pool = new_pool(database_url).expect("Failed to create pool.");
-    let database_address = SyncArbiter::start(num_cpus::get(), move || DbExecutor(database_pool.clone()));
+    let message_handler = SyncArbiter::start(num_cpus::get(), move || MessageHandler {
+        db_connection_pool: database_pool.clone()
+    });
 
     let bind_address = env::var("BIND_ADDRESS").expect("BIND_ADDRESS is not set");
 
     HttpServer::new(move || {
         let state = AppState {
-            db: database_address.clone(),
+            message_handler: message_handler.clone(),
         };
         let cors = match frontend_origin {
-            Some(ref origin) => Cors::new()
+            Some(ref origin) => Cors::default()
                 .allowed_origin(origin)
                 .allowed_headers(vec![AUTHORIZATION, CONTENT_TYPE])
                 .max_age(3600),
-            None => Cors::new()
+            None => Cors::default()
                 .allowed_origin("*")
                 .send_wildcard()
                 .allowed_headers(vec![AUTHORIZATION, CONTENT_TYPE])
