@@ -1,4 +1,4 @@
-use serde::Deserialize;
+use serde::{Deserialize, Serialize};
 use validator::{Validate};
 // use diesel::{Insertable, AsChangeset};
 use actix::prelude::{Message};
@@ -6,22 +6,19 @@ use crate::prelude::Result;
 
 #[derive(Debug, Validate, Deserialize)]
 pub struct Login {
-    #[validate(length(
-        min = "6",
-        max = "30",
-        message = "验证失败: 登录名必须为6-30个字符长"
-    ))]
+    #[validate(length(min = 6, max = 30, message = "验证失败: 登录名必须为6-30个字符长"))]
     pub username: String,
-    #[validate(length(
-        min = "8",
-        max = "30",
-        message = "验证失败：密码长度必须为8-30个字符"
-    ))]
+    #[validate(length(min = 8, max = 30, message = "验证失败：密码长度必须为8-30个字符"))]
     pub password: String,
 }
 
 impl Message for Login {
-    type Result = Result<()>;
+    type Result = Result<LoginResponse>;
+}
+
+#[derive(Debug, Serialize)]
+pub struct LoginResponse {
+    pub token: String,
 }
 
 // #[derive(Debug, Insertable)]

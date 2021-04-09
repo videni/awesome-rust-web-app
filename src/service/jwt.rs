@@ -1,48 +1,34 @@
-use chrono::{Duration, Utc};
-use jsonwebtoken::{decode, encode, Header, TokenData, Validation};
+use jsonwebtoken::{decode, TokenData, Validation, DecodingKey};
 use std::env;
-use uuid::Uuid;
 use serde::{Serialize, Deserialize};
-
-use crate::model::User;
 use crate::prelude::*;
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct Claims {
-    pub id: Uuid,
-    pub exp: i64,
+pub struct Payload {
+    pub user_id: u32,
+    pub expires_at: i64,
 }
 
 pub trait CanGenerateJwt {
     fn generate_jwt(&self) -> Result<String>;
 }
 
-impl CanGenerateJwt for User {
-    fn generate_jwt(&self) -> Result<String> {
-        let exp = (Utc::now() + Duration::days(21)).timestamp();
-        let claims = Claims { id: self.id, exp };
-
-        let header = Header::default();
-        let secret = &get_secret();
-        let token = encode(&header, &claims, secret.as_ref())?;
-
-        Ok(token)
-    }
-}
-
 pub trait CanDecodeJwt {
-    fn decode_jwt(&self) -> Result<TokenData<Claims>>;
+    fn decode_jwt(&self) -> Result<TokenData<Payload>>;
 }
 
 impl CanDecodeJwt for String {
-    fn decode_jwt(&self) -> Result<TokenData<Claims>> {
-        match decode::<Claims>(&self, get_secret().as_ref(), &Validation::default()) {
+    fn decode_jwt(&self) -> Result<TokenData<Payload>> {
+        let secret = get_secret();
+        let key = DecodingKey::from_secret(secret.as_ref());
+
+        match decode::<Payload>(&self, &key, &Validation::default()) {
             Ok(res) => Ok(res),
             Err(e) => Err(e.into()),
         }
     }
 }
 
-fn get_secret() -> String {
+pub fn get_secret() -> String {
     env::var("JWT_SECRET").unwrap_or_else(|_| "secret".into())
 }

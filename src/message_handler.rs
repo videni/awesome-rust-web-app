@@ -1,11 +1,11 @@
 use crate::db::ConnectionPool;
 use actix::prelude::{Actor, SyncContext};
 
-pub mod user;
+pub mod login_handler;
 
 pub struct MessageHandler
 {
-    db_connection_pool: ConnectionPool,
+    pub db_connection_pool: ConnectionPool,
 }
 
 impl Actor for MessageHandler {

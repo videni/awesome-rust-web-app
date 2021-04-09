@@ -1,20 +1,15 @@
-use actix_web::{HttpResponse, web, Error};
+use actix_web::{HttpResponse, web};
 use crate::message::user::Login;
 use crate::app::AppState;
 use crate::prelude::*;
+use validator::Validate;
 
-pub async fn login (credential: web::Json<Login>, app_state: web::Data<AppState>) -> Result<HttpResponse, Error> {
+pub async fn login (credential: web::Json<Login>, app_state: web::Data<AppState>) -> Result<HttpResponse> {
     let  credential = credential.into_inner();
 
-    match credential.validate() {
-        Ok(_) => (),
-        Err(e) => return e,
-    };
+    credential.validate()?;
+    println!("{:?}", credential);
 
-    let result = app_state.message_handler.send(credential).await;
-
-    match result {
-        Ok(res) => Ok(HttpResponse::Ok().json(res)),
-        Err(e) => Ok(e.error_response()),
-    }
+    let response = app_state.message_handler.send(credential).await?;
+    Ok(HttpResponse::Ok().json(response.unwrap()))
 }

@@ -6,7 +6,6 @@ pub use crate::error::Error;
 
 pub type Connection = MysqlConnection;
 pub type ConnectionPool = Pool<ConnectionManager<Connection>>;
-pub type PooledConn = PooledConnection<ConnectionManager<Connection>>;
 
 pub fn new_pool<S: Into<String>>(database_url: S) -> Result<ConnectionPool, Error> {
     let manager = ConnectionManager::<Connection>::new(database_url.into());

@@ -8,7 +8,7 @@ CREATE TABLE user (
     `failures_num` smallint DEFAULT '0' COMMENT 'Failure Number',
     `first_failed_at` timestamp NULL DEFAULT NULL COMMENT 'First Failure',
     `lock_expires_at` timestamp NULL DEFAULT NULL COMMENT 'Expiration Lock Dates',
-    `enabled` smallint NOT NULL DEFAULT '1' COMMENT 'User Is enabled',
+    `enabled` tinyint NOT NULL DEFAULT '1' COMMENT 'User Is enabled',
     `salt` varchar(255) DEFAULT NULL COMMENT 'Salt to encode password',
     PRIMARY KEY (`user_id`),
     UNIQUE KEY `USER_USERNAME` (`username`)
