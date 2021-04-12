@@ -1,13 +1,12 @@
 use crate::db::new_pool;
 use crate::message_handler::MessageHandler;
 use actix::prelude::{Addr, SyncArbiter};
+use crate::app::user::login;
 use actix_web::{
     middleware::Logger,
     web,
     App, 
-    HttpResponse,
     HttpServer,
-    Responder,
     http::header::{AUTHORIZATION, CONTENT_TYPE},
 };
 use actix_cors::Cors;
@@ -35,21 +34,21 @@ pub async fn start() -> std::io::Result<()> {
         let state = AppState {
             message_handler: message_handler.clone(),
         };
-        let cors = match frontend_origin {
-            Some(ref origin) => Cors::default()
-                .allowed_origin(origin)
-                .allowed_headers(vec![AUTHORIZATION, CONTENT_TYPE])
-                .max_age(3600),
-            None => Cors::default()
-                .allowed_origin("*")
-                .send_wildcard()
-                .allowed_headers(vec![AUTHORIZATION, CONTENT_TYPE])
-                .max_age(3600),
-        };
+        // let cors = match frontend_origin {
+        //     Some(ref origin) => Cors::default()
+        //         .allowed_origin(origin)
+        //         .allowed_headers(vec![AUTHORIZATION, CONTENT_TYPE])
+        //         .max_age(3600),
+        //     None => Cors::default()
+        //         .allowed_origin("*")
+        //         .send_wildcard()
+        //         .allowed_headers(vec![AUTHORIZATION, CONTENT_TYPE])
+        //         .max_age(3600),
+        // };
         App::new()
             .data(state)
             .wrap(Logger::default())
-            .wrap(cors)
+            // .wrap(cors)
             .configure(routes)
         })
         .bind(&bind_address)
@@ -58,17 +57,16 @@ pub async fn start() -> std::io::Result<()> {
         .await
 }
 
-async fn ok() -> impl Responder {
-    HttpResponse::Ok().body("Hello, there!")
+async fn index() -> &'static str {
+    "Hello, there!"
 }
 
 fn routes(app: &mut web::ServiceConfig) {
     app
-        .service(web::resource("/").to(ok))
-        // .service(web::scope("/api")
-        //         .service(web::resource("login")
-        //             .route(web::post().to(user::login))
-        //         )
-        //     )
-            ;
+        .service(web::resource("/").route(web::post().to(index)))
+        .service(web::scope("/api")
+                .service(web::resource("login")
+                    .route(web::post().to(login))
+                )
+            );
 }

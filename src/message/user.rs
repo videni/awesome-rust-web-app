@@ -4,7 +4,7 @@ use validator::{Validate};
 use actix::prelude::{Message};
 use crate::prelude::Result;
 
-#[derive(Debug, Validate, Deserialize)]
+#[derive(Debug, Deserialize, Validate)]
 pub struct Login {
     #[validate(length(min = 6, max = 30, message = "验证失败: 登录名必须为6-30个字符长"))]
     pub username: String,

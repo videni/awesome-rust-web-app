@@ -1,4 +1,4 @@
-use libreauth::pass::{Algorithm, HashBuilder};
+use libreauth::pass::{HashBuilder};
 
 pub trait PasswordEncoder {
     fn encode_password(&self, raw: &str, salt: Option<&str>) -> String;
@@ -6,7 +6,6 @@ pub trait PasswordEncoder {
     fn is_password_valid(&self, encoded: &str, raw: &str, salt: Option<&str>) -> bool;
 }
 
-pub const PWD_ALGORITHM: Algorithm = Algorithm::Argon2;
 pub const PWD_SCHEME_VERSION: usize = 1;
 
 pub struct Argon2PasswordEncoder {
