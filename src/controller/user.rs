@@ -29,10 +29,10 @@ pub async fn login (credential: web::Json<Login>, app_state: web::Data<AppState>
 }
 
 pub async fn register(registration: web::Json<Register>, app_state: web::Data<AppState>) -> Result<HttpResponse, Error> {
-    let registeration1 = registration.into_inner();
-    registeration1.validate()?;
+    let registration = registration.into_inner();
+    registration.validate()?;
 
-    let response = app_state.message_handler.send(registeration1).await?;
+    let response = app_state.message_handler.send(registration).await?;
     match response {
         Err(_error) =>  Ok(
             HttpResponse::Ok()
@@ -40,12 +40,10 @@ pub async fn register(registration: web::Json<Register>, app_state: web::Data<Ap
                 "message" : "用户或密码错误"
             }))
         ),
-        Ok(_data) => {
+        Ok(data) => {
             Ok(
                 HttpResponse::Ok()
-                .json(json!({
-                    "token" : "Okay"
-                }))
+                .json(json!(data))
             )
         }
     }
