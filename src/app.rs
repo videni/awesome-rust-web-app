@@ -1,7 +1,7 @@
 use crate::db::new_pool;
 use crate::message_handler::MessageHandler;
 use actix::prelude::{Addr, SyncArbiter};
-use crate::app::user::login;
+use crate::controller::user::{login, register};
 use actix_web::{
     middleware::Logger,
     web,
@@ -11,8 +11,6 @@ use actix_web::{
 };
 use actix_cors::Cors;
 use std::env;
-
-mod user;
 
 pub struct AppState {
     pub message_handler: Addr<MessageHandler>,
@@ -67,6 +65,9 @@ fn routes(app: &mut web::ServiceConfig) {
         .service(web::scope("/api")
                 .service(web::resource("login")
                     .route(web::post().to(login))
+                )
+                .service(web::resource("register")
+                    .route(web::post().to(register))
                 )
             );
 }

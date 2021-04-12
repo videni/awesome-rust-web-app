@@ -2,16 +2,16 @@ use diesel::table;
 
 table! {
     user (user_id) {
-        user_id -> Unsigned<Integer>,
-        username -> Varchar,
-        password -> Varchar,
+        user_id -> Uuid,
+        username -> Text,
+        password -> Text,
         created_at -> Timestamp,
         updated_at -> Timestamp,
-        email -> Nullable<Varchar>,
-        failures_num -> Nullable<TinyInt>,
+        email -> Nullable<Text>,
+        failures_num -> Nullable<Smallint>,
         first_failed_at -> Nullable<Timestamp>,
         lock_expires_at -> Nullable<Timestamp>,
-        enabled -> TinyInt,
-        salt -> Nullable<Varchar>,
+        enabled -> Bool,
+        salt -> Nullable<Text>,
     }
 }

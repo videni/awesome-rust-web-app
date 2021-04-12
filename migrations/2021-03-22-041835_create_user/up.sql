@@ -1,5 +1,5 @@
 CREATE TABLE user (
-    `user_id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'User ID',  
+    `user_id`  UUID PRIMARY KEY DEFAULT uuid_generate_v4() COMMENT 'User ID',
     `username` varchar(40) DEFAULT NULL COMMENT 'User Login',
     `password` varchar(255) NOT NULL COMMENT 'User Password',
     `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'User Created Time',

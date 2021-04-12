@@ -4,22 +4,23 @@ use crate::schema::user;
 use crate::service::jwt::{CanGenerateJwt, get_secret, Payload};
 use jsonwebtoken::{encode, Header, EncodingKey};
 use crate::prelude::*;
+use uuid::Uuid;
 
 #[derive(Debug, Queryable,Identifiable)]
 #[primary_key(user_id)]
 #[column_name(user_id)]
 #[table_name="user"]
 pub struct User {
-    pub user_id: u32,
+    pub user_id: Uuid,
     pub username: String,
     pub password: String,
     pub created_at: NaiveDateTime,
     pub updated_at: NaiveDateTime,
     pub email: Option<String>,
-    pub failures_num: Option<i8>,
+    pub failures_num: Option<i16>,
     pub first_failed_at: Option<NaiveDateTime>,
     pub lock_expires_at: Option<NaiveDateTime>,
-    pub enabled: i8,
+    pub enabled: bool,
     pub salt: Option<String>,
 }
 
@@ -35,4 +36,20 @@ impl CanGenerateJwt for User {
 
         Ok(token)
     }
+}
+
+#[derive(Debug, Insertable)]
+#[table_name = "user"]
+pub struct NewUser {
+    pub username: String,
+    pub email: String,
+    pub password: String,
+}
+
+#[derive(Debug, AsChangeset)]
+#[table_name = "user"]
+pub struct UserChange {
+    pub username: Option<String>,
+    pub email: Option<String>,
+    pub password: Option<String>,
 }

@@ -2,10 +2,11 @@ use jsonwebtoken::{decode, TokenData, Validation, DecodingKey};
 use std::env;
 use serde::{Serialize, Deserialize};
 use crate::prelude::*;
+use uuid::Uuid;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Payload {
-    pub user_id: u32,
+    pub user_id: Uuid,
     pub expires_at: i64,
 }
 
