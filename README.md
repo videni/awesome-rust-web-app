@@ -11,7 +11,7 @@ cp .env.example .env
 * Install diesel cli with mysql
 
 ```bash
-cargo install diesel_cli --no-default-features --features mysql
+cargo install diesel_cli --no-default-features --features postgres
 diesel setup
 ```
 

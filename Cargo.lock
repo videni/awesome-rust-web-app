@@ -301,12 +301,24 @@ dependencies = [
 ]
 
 [[package]]
-name = "actix-web-tutorial"
+name = "actix_derive"
+version = "0.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "b95aceadaf327f18f0df5962fedc1bde2f870566a0b9f65c89508a3b1f79334c"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "actix_web_tutorial"
 version = "0.1.0"
 dependencies = [
  "actix",
  "actix-cors",
  "actix-rt",
+ "actix-service",
  "actix-web",
  "backtrace",
  "blob-uuid",
@@ -328,17 +340,6 @@ dependencies = [
  "uuid 0.8.2",
  "validator",
  "validator_derive",
-]
-
-[[package]]
-name = "actix_derive"
-version = "0.5.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b95aceadaf327f18f0df5962fedc1bde2f870566a0b9f65c89508a3b1f79334c"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn",
 ]
 
 [[package]]

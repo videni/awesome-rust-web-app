@@ -33,6 +33,8 @@ pub async fn register(registration: web::Json<Register>, app_state: web::Data<Ap
     registration.validate()?;
 
     let response = app_state.message_handler.send(registration).await?;
+    println!("{:?}", response);
+    
     match response {
         Err(_error) =>  Ok(
             HttpResponse::Ok()
