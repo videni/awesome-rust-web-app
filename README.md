@@ -1,5 +1,12 @@
 Actix web tutorial
 ===================
+
+## Project scope
+
+* Follow DDD patterns
+* Integration test sample
+* Using Postgresql instead of MySQL
+  
 ## Getting started
 
 * Create .env
