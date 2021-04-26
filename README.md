@@ -32,7 +32,17 @@ diesel setup
 
 * Build this project with `cargo build`. You are welcome to compile with `--release` if you'd like.
 * Run with `cargo run`.
+  
+## Test
 
+```bash
+cp .env.example .env.test
+```
+then run
+
+```
+cargo test
+```
 
 ## Todo 
 
