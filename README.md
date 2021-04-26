@@ -1,6 +1,8 @@
 Actix web tutorial
 ===================
 
+An actix-web demo following DDD patterns.
+
 ## Project scope
 
 * Follow DDD patterns
