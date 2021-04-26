@@ -30,3 +30,8 @@ diesel setup
 
 * Build this project with `cargo build`. You are welcome to compile with `--release` if you'd like.
 * Run with `cargo run`.
+
+
+## Todo 
+
+* Rollback after integration test
