@@ -1,7 +1,8 @@
 use actix_web::{
     HttpResponse, 
     web, 
-    Result, 
+    Result,
+    http::StatusCode
 };
 use crate::app::AppState;
 use crate::error::Error;
@@ -22,7 +23,7 @@ pub async fn login(
 
     match response {
         Err(_error) =>  Ok(
-            HttpResponse::Ok()
+            HttpResponse::build(StatusCode::BAD_REQUEST)
             .json(json!({
                 "message" : "用户或密码错误"
             }))

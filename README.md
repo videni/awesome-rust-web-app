@@ -38,11 +38,25 @@ diesel setup
 ```bash
 cp .env.example .env.test
 ```
-then run
+
+then run all tests
 
 ```
 cargo test
 ```
+
+You can also run specific test
+
+```
+cargo test test_login
+```
+
+For local development, you usually want to print something into std output, 
+then you can run your test this way 
+```
+cargo test test_login -- --nocapture
+```
+check  [`--nocapture`](https://doc.rust-lang.org/cargo/commands/cargo-test.html) for details.
 
 ## Todo 
 

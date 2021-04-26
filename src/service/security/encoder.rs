@@ -29,8 +29,8 @@ impl PasswordEncoder for Argon2PasswordEncoder {
     }
 
     fn is_password_valid(&self, encoded: &str, raw: &str, _salt: Option<&str>) -> bool {
-        let checker = HashBuilder::from_phc(raw).unwrap();
+        let checker = HashBuilder::from_phc(encoded).unwrap();
 
-        return checker.is_valid(encoded);
+        return checker.is_valid(raw);
     }
 }
