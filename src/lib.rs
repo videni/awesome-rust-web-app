@@ -2,11 +2,13 @@
 #[macro_use]
 extern crate diesel;
 #[macro_use]
-extern crate failure;
+extern crate thiserror;
 #[macro_use]
 extern crate log;
 #[macro_use]
 extern crate actix_cors;
+#[macro_use]
+extern crate lazy_static;
 
 pub mod service;
 pub mod model;

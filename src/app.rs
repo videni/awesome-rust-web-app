@@ -1,6 +1,4 @@
-use crate::db::new_pool;
-use crate::message_handler::MessageHandler;
-use actix::prelude::{Addr, SyncArbiter};
+use crate::db::{new_pool, ConnectionPool};
 use crate::route;
 use actix_web::{
     middleware::Logger,
@@ -14,10 +12,33 @@ use actix_web::dev::{Body, ServiceRequest, ServiceResponse};
 use actix_service::ServiceFactory;
 
 pub struct AppState {
-    pub message_handler: Addr<MessageHandler>,
+    pub db_connection_pool: ConnectionPool 
 }
 
-pub fn init() -> App<
+pub enum AppEnv {
+    Dev,
+    Prod,
+    Test
+}
+
+// Set up dotenv and logger
+pub fn setup(env: Option<AppEnv>) {
+    let mut env_filename = String::from(".env");
+    if let Some(AppEnv::Test) = env {
+        env_filename= String::from(".env.test")
+    }
+
+    dotenv::from_filename(env_filename).ok();
+
+    dotenv::dotenv().ok();
+
+    if env::var("RUST_LOG").ok().is_none() {
+        env::set_var("RUST_LOG", "info");
+    }
+    env_logger::init();
+}
+
+pub fn boot() -> App<
     impl ServiceFactory<
         Request = ServiceRequest,
         Config = (),
@@ -28,17 +49,8 @@ pub fn init() -> App<
     Body,
 > {
     let frontend_origin = env::var("FRONTEND_ORIGIN").ok();
-
-    let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
-    let database_pool = new_pool(database_url).expect("Failed to create pool.");
-    
-    let message_handler = SyncArbiter::start(num_cpus::get(), move || MessageHandler {
-        db_connection_pool: database_pool.clone()
-    });
-
-    let state = AppState {
-        message_handler: message_handler.clone(),
-    };
+    let state = create_state();
+  
     // let cors = match frontend_origin {
     //     Some(ref origin) => Cors::default()
     //         .allowed_origin(origin)
@@ -55,4 +67,15 @@ pub fn init() -> App<
         // .wrap(Logger::default())
         // .wrap(cors)
         .configure(route::routes)
+}
+
+fn create_state() -> AppState
+{
+    let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+    println!("{}", &database_url);
+    let database_pool = new_pool(database_url).expect("Failed to create pool.");
+
+    AppState {
+        db_connection_pool: database_pool
+    }
 }

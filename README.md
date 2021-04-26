@@ -18,7 +18,7 @@ diesel setup
 * Setup your database
 
 ```bash
-  `diesel database setup`
+  diesel database setup
 ```
 
 * Build this project with `cargo build`. You are welcome to compile with `--release` if you'd like.

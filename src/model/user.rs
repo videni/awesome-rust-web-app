@@ -42,7 +42,7 @@ impl CanGenerateJwt for User {
 #[table_name = "user"]
 pub struct NewUser {
     pub username: String,
-    pub email: String,
+    pub email: Option<String>,
     pub password: String,
 }
 

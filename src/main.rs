@@ -1,11 +1,13 @@
 #[macro_use]
 extern crate diesel;
 #[macro_use]
-extern crate failure;
+extern crate thiserror;
 #[macro_use]
 extern crate log;
 #[macro_use]
 extern crate actix_cors;
+#[macro_use]
+extern crate lazy_static;
 
 use env_logger;
 use std::env;
@@ -23,18 +25,13 @@ pub mod app;
 pub mod controller;
 pub mod route;
 
-#[actix_rt::main]
+#[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    dotenv::dotenv().ok();
-
-    if env::var("RUST_LOG").ok().is_none() {
-        env::set_var("RUST_LOG", "info");
-    }
-    env_logger::init();
+    app::setup(None);
 
     let bind_address = env::var("BIND_ADDRESS").expect("BIND_ADDRESS is not set");
 
-    HttpServer::new(||app::init())
+    HttpServer::new(||app::boot())
         .bind(&bind_address)
         .unwrap_or_else(|_| panic!("Could not bind server to address {}", &bind_address))
         .run()

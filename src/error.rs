@@ -9,28 +9,32 @@ use libreauth::pass::ErrorCode as PassErrorCode;
 use serde_json::{Map as JsonMap, Value as JsonValue, json};
 use std::convert::From;
 use validator::ValidationErrors;
-use failure::Fail;
+use thiserror::Error;
 
-#[derive(Fail, Debug)]
+#[derive(Error, Debug)]
 pub enum Error {
     // 401
-    #[fail(display = "Unauthorized: {}", _0)]
+    #[error("Unauthorized: {}", .0)]
     Unauthorized(JsonValue),
 
     // 403
-    #[fail(display = "Forbidden: {}", _0)]
+    #[error("Forbidden: {}", .0)]
     Forbidden(JsonValue),
 
     // 404
-    #[fail(display = "Not Found: {}", _0)]
+    #[error("Not Found: {}", .0)]
     NotFound(JsonValue),
 
     // 422
-    #[fail(display = "Unprocessable Entity: {}", _0)]
+    #[error("Unprocessable Entity: {}", .0)]
     UnprocessableEntity(JsonValue),
 
+    // 400
+    #[error("Validation failed: {}", .0)]
+    ValidationFailed(JsonValue),
+
     // 500
-    #[fail(display = "Internal Server Error")]
+    #[error("Internal Server Error")]
     InternalServerError,
 }
 
@@ -44,6 +48,9 @@ impl ResponseError for Error {
             Error::NotFound(ref message) => HttpResponse::NotFound().json(message),
             Error::UnprocessableEntity(ref message) => {
                 HttpResponse::build(StatusCode::UNPROCESSABLE_ENTITY).json(message)
+            },
+            Error::ValidationFailed(ref message) => {
+                HttpResponse::build(StatusCode::BAD_REQUEST).json(message)
             }
             Error::InternalServerError => {
                 HttpResponse::InternalServerError().json("Internal Server Error")
@@ -120,7 +127,7 @@ impl From<ValidationErrors> for Error {
             err_map.insert(field.to_string(), json!(errors));
         }
 
-        Error::UnprocessableEntity(json!({
+        Error::ValidationFailed(json!({
             "errors": err_map,
         }))
     }

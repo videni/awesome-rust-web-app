@@ -1,21 +1,28 @@
-use crate::app;
-use crate::message::Register;
+use actix_web_tutorial::app;
 use actix_web::{test};
+use serde_json::json;
 
 #[actix_rt::test]
 async fn test_register() {
-    let app = app::init();
+    app::setup(Some(app::AppEnv::Test));
+
     let mut service = test::init_service(
-        app
+        app::boot()
         ).await;
+
+    let message = json!({
+            "username": "sam.smith",
+            "email": "sam.smith@example.com",
+            "password": "1234Qwer",
+        });
+
     let req = test::TestRequest::post()
         .uri("/api/register")
-        .set_json(Register {
-            username: "sam.smith",
-            email: "sam.smith@example.com",
-            password: "1234Qwer",
-        })
+        .set_json(&message)
         .to_request();
+
     let resp = test::call_service(&mut service, req).await;
+
+    println!("{:?}", resp);
     assert!(resp.status().is_success());
 }

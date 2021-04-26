@@ -1,4 +1,4 @@
-use libreauth::pass::{HashBuilder};
+use libreauth::pass::{HashBuilder, Algorithm, Hasher};
 
 pub trait PasswordEncoder {
     fn encode_password(&self, raw: &str, salt: Option<&str>) -> String;
@@ -7,15 +7,23 @@ pub trait PasswordEncoder {
 }
 
 pub const PWD_SCHEME_VERSION: usize = 1;
+pub const PWD_ALGORITHM: Algorithm = Algorithm::Argon2;
 
 pub struct Argon2PasswordEncoder {
 
 }
 
+lazy_static! {
+    pub static ref HASHER: Hasher = HashBuilder::new()
+    .version(PWD_SCHEME_VERSION)
+    .algorithm(PWD_ALGORITHM)
+    .finalize()
+    .unwrap();
+}
+
 impl PasswordEncoder for Argon2PasswordEncoder {
     fn encode_password(&self, raw: &str, _salt: Option<&str>) -> String {
-        let hasher = HashBuilder::new().version(PWD_SCHEME_VERSION).finalize().unwrap();
-        let encoded_password = hasher.hash(raw).unwrap();
+        let encoded_password = HASHER.hash(raw).unwrap();
 
         return encoded_password;
     }
