@@ -1,8 +1,7 @@
 rust web development explorer
 =============================
 
-I'm evaluating web development on rust, this is very opinioned seletions,
-but I will try my best to make it production ready.
+A series of opinioned seletions for web development
 
 ## Requirements
 
@@ -16,7 +15,7 @@ but I will try my best to make it production ready.
 * [x] Using Postgresql instead of MySQL
   
   Sorry I don't use MySQL, uuid is internally handled by Postgresql, I need a way to create the id for an entity before persisting it into database.
-* Rollback after integration test
+* Rollback transactino for functional test
 * Repository for database operations
 * Model for business logic
 * JWT Authentication
