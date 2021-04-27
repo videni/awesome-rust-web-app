@@ -1,5 +1,8 @@
 rust web development experiment
 ===============================
+## Intro
+
+Currently this project uses following teches
 
 * actix-web
 * Postgresql
