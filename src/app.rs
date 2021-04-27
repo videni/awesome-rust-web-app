@@ -23,9 +23,9 @@ pub enum AppEnv {
 
 // Set up dotenv and logger
 pub fn setup(env: Option<AppEnv>) {
-    let mut env_filename = String::from(".env");
+    let mut env_filename = ".env";
     if let Some(AppEnv::Test) = env {
-        env_filename= String::from(".env.test")
+        env_filename= ".env.test"
     }
 
     dotenv::from_filename(env_filename).ok();

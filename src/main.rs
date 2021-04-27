@@ -9,7 +9,6 @@ extern crate actix_cors;
 #[macro_use]
 extern crate lazy_static;
 
-use env_logger;
 use std::env;
 use actix_web::{ HttpServer };
 

@@ -61,3 +61,6 @@ check  [`--nocapture`](https://doc.rust-lang.org/cargo/commands/cargo-test.html)
 ## Todo 
 
 * Rollback after integration test
+* Repository for database operations
+* Model for business logic
+* JWT Authentication
