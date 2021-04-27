@@ -1,7 +1,8 @@
-rust web development experiment
-===============================
+rust web development explorer
+=============================
 
-I'm evaluating web development on rust, this is very opinioned seletions.
+I'm evaluating web development on rust, this is very opinioned seletions,
+but I will try my best to make it production ready.
 
 ## Requirements
 
