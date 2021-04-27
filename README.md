@@ -5,9 +5,9 @@ I'm evaluating web development on rust, this is very opinioned seletions.
 
 ## Requirements
 
-* actix-web
+* Actix-web
 * Postgresql
-  
+
 ## Features 
 
 * [x] Follow DDD patterns
@@ -20,7 +20,10 @@ I'm evaluating web development on rust, this is very opinioned seletions.
 * Model for business logic
 * JWT Authentication
 * Integrate GraphQL
-
+* [Mutiple languages on Fluent](https://blog.logrocket.com/rust-internationalization-localization-and-translation/#gettext-rs)
+  
+  It seems Fluent is more promising for website, check the link for details.
+  
 ## Getting started
 
 * Create .env
