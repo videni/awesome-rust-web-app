@@ -5,9 +5,9 @@ use uuid::Uuid;
 
 #[derive(Debug, Deserialize, Validate)]
 pub struct Login {
-    #[validate(length(min = 6, max = 30, message = "登录名必须为6-30个字符长"))]
+    #[validate(length(min = 6, max = 30, message = "Username must be 6-30 charaters long"))]
     pub username: String,
-    #[validate(length(min = 8, max = 30, message = "密码长度必须为8-30个字符"))]
+    #[validate(length(min = 8, max = 30, message = "Password must be 8-30 chracters long"))]
     pub password: String,
 }
 

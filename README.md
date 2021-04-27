@@ -1,13 +1,14 @@
 rust web development experiment
 ===============================
-## Intro
 
-Currently this project uses following teches
+I'm evaluating web development on rust, this is very opinioned seletions.
+
+## Requirements
 
 * actix-web
 * Postgresql
   
-## Todo 
+## Features 
 
 * [x] Follow DDD patterns
 * [x] Integration test sample
@@ -19,7 +20,7 @@ Currently this project uses following teches
 * Model for business logic
 * JWT Authentication
 * Integrate GraphQL
-  
+
 ## Getting started
 
 * Create .env

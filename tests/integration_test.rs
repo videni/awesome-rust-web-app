@@ -4,7 +4,7 @@ use serde_json::json;
 
 #[actix_rt::test]
 async fn test_register() {
-    app::setup(Some(app::AppEnv::Test));
+    app::setup(app::AppEnv::Test);
 
     let mut service = test::init_service(
         app::boot()
@@ -23,7 +23,6 @@ async fn test_register() {
 
     let resp = test::call_service(&mut service, req).await;
 
-    println!("{:?}", resp);
     assert!(resp.status().is_success());
 }
 

@@ -24,15 +24,16 @@ pub async fn register(
     let registration = &registration.into_inner();
     registration.validate()?;
 
+    let db_pool = app_state.db_connection_pool.clone();
+    validate_user_exists(&registration.username, &db_pool)?;
+
     let  create_user = CreateUser{
         username: registration.username.clone(), 
         password: registration.password.clone(),
         user_id: Uuid::new_v4(), 
         email: if registration.email.is_empty() { Some(registration.email.clone()) } else { None }
     };
-    let db_pool = app_state.db_connection_pool.clone();
 
-    validate_user_exists(&registration.username, &db_pool)?;
 
     let user = CreateUserHandler(db_pool).handle(create_user).await?;
 
@@ -47,12 +48,12 @@ pub async fn register(
 #[derive(Debug, Validate, Deserialize, Serialize)]
 pub struct Register {
     #[validate(
-        length(min = 6, max = 30, message = "登录名必须为6-30个字符长"),
+        length(min = 6, max = 30, message = "Username must be 6-30 charaters long"),
     )]
     pub username: String,
-    #[validate(email(message = "不是合法的邮件地址"))]
+    #[validate(email(message = "Email not valid"))]
     pub email: String,
-    #[validate(length(min = 8, max = 30, message = "密码长度必须为8-30个字符"))]
+    #[validate(length(min = 8, max = 30, message = "Password must be 8-30 chracters long"))]
     pub password: String,
 }
 

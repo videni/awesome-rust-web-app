@@ -25,7 +25,7 @@ pub async fn login(
         Err(_error) =>  Ok(
             HttpResponse::build(StatusCode::BAD_REQUEST)
             .json(json!({
-                "message" : "用户或密码错误"
+                "message" : "Username or password wrong"
             }))
         ),
         Ok(token) => {
