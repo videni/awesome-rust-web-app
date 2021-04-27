@@ -22,9 +22,9 @@ pub enum AppEnv {
 }
 
 // Set up dotenv and logger
-pub fn setup(env: Option<AppEnv>) {
+pub fn setup(env: AppEnv) {
     let mut env_filename = ".env";
-    if let Some(AppEnv::Test) = env {
+    if let AppEnv::Test = env {
         env_filename= ".env.test"
     }
 

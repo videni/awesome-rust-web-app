@@ -1,18 +1,16 @@
-Actix web tutorial
-===================
+rust web development experiment
+===============================
 
-An actix-web demo following DDD patterns.
-
-## Project scope
-
-* Follow DDD patterns
-* Integration test sample
-* Using Postgresql instead of MySQL
-  Sorry I don't use MySQL, uuid is internally handled by Postgresql, I need a way to
-  get create the id for an entity before persisting it into database.
-
+* actix-web
+* Postgresql
+  
 ## Todo 
 
+* [x] Follow DDD patterns
+* [x] Integration test sample
+* [x] Using Postgresql instead of MySQL
+  
+  Sorry I don't use MySQL, uuid is internally handled by Postgresql, I need a way to create the id for an entity before persisting it into database.
 * Rollback after integration test
 * Repository for database operations
 * Model for business logic

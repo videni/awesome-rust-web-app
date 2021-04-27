@@ -26,7 +26,7 @@ pub mod route;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    app::setup(None);
+    app::setup(app::AppEnv::Prod);
 
     let bind_address = env::var("BIND_ADDRESS").expect("BIND_ADDRESS is not set");
 

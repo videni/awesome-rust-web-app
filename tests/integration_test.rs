@@ -29,7 +29,7 @@ async fn test_register() {
 
 #[actix_rt::test]
 async fn test_login() {
-    app::setup(Some(app::AppEnv::Test));
+    app::setup(app::AppEnv::Test);
 
     let mut service = test::init_service(
         app::boot()
