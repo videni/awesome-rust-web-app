@@ -8,6 +8,16 @@ An actix-web demo following DDD patterns.
 * Follow DDD patterns
 * Integration test sample
 * Using Postgresql instead of MySQL
+  Sorry I don't use MySQL, uuid is internally handled by Postgresql, I need a way to
+  get create the id for an entity before persisting it into database.
+
+## Todo 
+
+* Rollback after integration test
+* Repository for database operations
+* Model for business logic
+* JWT Authentication
+* Integrate GraphQL
   
 ## Getting started
 
@@ -57,10 +67,3 @@ then you can run your test this way
 cargo test test_login -- --nocapture
 ```
 check  [`--nocapture`](https://doc.rust-lang.org/cargo/commands/cargo-test.html) for details.
-
-## Todo 
-
-* Rollback after integration test
-* Repository for database operations
-* Model for business logic
-* JWT Authentication
