@@ -312,38 +312,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "actix_web_tutorial"
-version = "0.1.0"
-dependencies = [
- "actix",
- "actix-cors",
- "actix-rt",
- "actix-service",
- "actix-web",
- "async-trait",
- "backtrace",
- "blob-uuid",
- "chrono",
- "diesel",
- "dotenv",
- "env_logger",
- "futures 0.3.14",
- "jsonwebtoken",
- "lazy_static",
- "libreauth",
- "log",
- "num_cpus",
- "oauth2",
- "serde",
- "serde_derive",
- "serde_json",
- "thiserror",
- "uuid 0.8.2",
- "validator",
- "validator_derive",
-]
-
-[[package]]
 name = "addr2line"
 version = "0.14.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -3342,6 +3310,38 @@ checksum = "a905d57e488fec8861446d3393670fb50d27a262344013181c2cdf9fff5481be"
 dependencies = [
  "js-sys",
  "wasm-bindgen",
+]
+
+[[package]]
+name = "web_development_explorer_rs"
+version = "0.1.0"
+dependencies = [
+ "actix",
+ "actix-cors",
+ "actix-rt",
+ "actix-service",
+ "actix-web",
+ "async-trait",
+ "backtrace",
+ "blob-uuid",
+ "chrono",
+ "diesel",
+ "dotenv",
+ "env_logger",
+ "futures 0.3.14",
+ "jsonwebtoken",
+ "lazy_static",
+ "libreauth",
+ "log",
+ "num_cpus",
+ "oauth2",
+ "serde",
+ "serde_derive",
+ "serde_json",
+ "thiserror",
+ "uuid 0.8.2",
+ "validator",
+ "validator_derive",
 ]
 
 [[package]]

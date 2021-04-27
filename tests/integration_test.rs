@@ -1,4 +1,4 @@
-use actix_web_tutorial::app;
+use web_development_explorer_rs::app;
 use actix_web::{test};
 use serde_json::json;
 

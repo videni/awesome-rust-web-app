@@ -7,16 +7,16 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug unit tests in library 'actix_web_tutorial'",
+            "name": "Debug unit tests in library 'web_development_explorer_rs'",
             "cargo": {
                 "args": [
                     "test",
                     "--no-run",
                     "--lib",
-                    "--package=actix_web_tutorial"
+                    "--package=web_development_explorer_rs"
                 ],
                 "filter": {
-                    "name": "actix_web_tutorial",
+                    "name": "web_development_explorer_rs",
                     "kind": "lib"
                 }
             },
@@ -26,15 +26,15 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug executable 'actix_web_tutorial'",
+            "name": "Debug executable 'web_development_explorer_rs'",
             "cargo": {
                 "args": [
                     "build",
-                    "--bin=actix_web_tutorial",
-                    "--package=actix_web_tutorial"
+                    "--bin=web_development_explorer_rs",
+                    "--package=web_development_explorer_rs"
                 ],
                 "filter": {
-                    "name": "actix_web_tutorial",
+                    "name": "web_development_explorer_rs",
                     "kind": "bin"
                 }
             },
@@ -44,16 +44,16 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug unit tests in executable 'actix_web_tutorial'",
+            "name": "Debug unit tests in executable 'web_development_explorer_rs'",
             "cargo": {
                 "args": [
                     "test",
                     "--no-run",
-                    "--bin=actix_web_tutorial",
-                    "--package=actix_web_tutorial"
+                    "--bin=web_development_explorer_rs",
+                    "--package=web_development_explorer_rs"
                 ],
                 "filter": {
-                    "name": "actix_web_tutorial",
+                    "name": "web_development_explorer_rs",
                     "kind": "bin"
                 }
             },
@@ -69,7 +69,7 @@
                     "test",
                     "--no-run",
                     "--test=integration_test",
-                    "--package=actix_web_tutorial"
+                    "--package=web_development_explorer_rs"
                 ],
                 "filter": {
                     "name": "integration_test",
