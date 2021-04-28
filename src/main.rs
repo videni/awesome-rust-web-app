@@ -23,6 +23,7 @@ pub mod prelude;
 pub mod app;
 pub mod controller;
 pub mod route;
+pub mod translation;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {

@@ -1,7 +1,7 @@
-rust web development explorer
-=============================
+Awesome Rust Web App
+===================
 
-A series of opinioned seletions for web development
+This project shows you how to develop Rust web application by implementing a simple blog management system.
 
 ## Requirements
 
@@ -20,9 +20,13 @@ A series of opinioned seletions for web development
 * Model for business logic
 * JWT Authentication
 * Integrate GraphQL
-* [Mutiple languages on Fluent](https://blog.logrocket.com/rust-internationalization-localization-and-translation/#gettext-rs)
+* Mutiple languages
   
+  [Fluent](https://blog.logrocket.com/rust-internationalization-localization-and-translation/#gettext-rs)
   It seems Fluent is more promising for website, check the link for details.
+* Dependency injection
+  
+  [Shaku](https://docs.rs/shaku/0.6.1/shaku/guide/index.html) Shaku is a compile time dependency injection Rust library
   
 ## Getting started
 

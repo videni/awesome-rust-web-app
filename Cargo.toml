@@ -1,5 +1,5 @@
 [package]
-name = "web_development_explorer_rs"
+name = "awesome_rust_web_app"
 version = "0.1.0"
 authors = ["Vidy Videni <vidy.videni@gmail.com>"]
 edition = "2018"
@@ -33,3 +33,6 @@ backtrace = "0.3"
 serde_derive = "1.0"
 blob-uuid = "0.4.0"
 async-trait = "0.1.50"
+fluent-templates = "0.6.1"
+fluent-langneg = "0.13.0"
+unic-langid = { version = "0.9.0", features = ["macros"] }

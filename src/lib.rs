@@ -21,3 +21,4 @@ pub mod prelude;
 pub mod app;
 pub mod controller;
 pub mod route;
+pub mod translation;
