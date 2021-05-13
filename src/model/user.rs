@@ -1,15 +1,15 @@
-use chrono::{NaiveDateTime, Duration, Utc};
-use diesel::{Queryable, Identifiable};
-use crate::schema::user;
-use crate::service::jwt::{CanGenerateJwt, get_secret, Payload};
-use jsonwebtoken::{encode, Header, EncodingKey};
 use crate::prelude::*;
+use crate::schema::user;
+use crate::service::jwt::{get_secret, CanGenerateJwt, Payload};
+use chrono::{Duration, NaiveDateTime, Utc};
+use diesel::{Identifiable, Queryable};
+use jsonwebtoken::{encode, EncodingKey, Header};
 use uuid::Uuid;
 
-#[derive(Debug, Queryable,Identifiable)]
+#[derive(Debug, Queryable, Identifiable)]
 #[primary_key(user_id)]
 #[column_name(user_id)]
-#[table_name="user"]
+#[table_name = "user"]
 pub struct User {
     pub user_id: Uuid,
     pub username: String,
@@ -27,7 +27,10 @@ pub struct User {
 impl CanGenerateJwt for User {
     fn generate_jwt(&self) -> Result<String> {
         let expires_at = (Utc::now() + Duration::days(21)).timestamp();
-        let payload = Payload { user_id: self.user_id, expires_at };
+        let payload = Payload {
+            user_id: self.user_id,
+            expires_at,
+        };
 
         let header = Header::default();
         let secret = &get_secret();

@@ -1,7 +1,6 @@
-use serde::{Deserialize};
-use validator::{Validate};
+use serde::Deserialize;
 use uuid::Uuid;
-
+use validator::Validate;
 
 #[derive(Debug, Deserialize, Validate)]
 pub struct Login {
@@ -18,7 +17,6 @@ pub struct CreateUser {
     pub password: String,
     pub user_id: Uuid,
 }
-
 
 // #[derive(Debug, Insertable)]
 // #[table_name = "user"]

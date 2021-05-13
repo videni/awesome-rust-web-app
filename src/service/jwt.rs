@@ -1,7 +1,7 @@
-use jsonwebtoken::{decode, TokenData, Validation, DecodingKey};
-use std::env;
-use serde::{Serialize, Deserialize};
 use crate::prelude::*;
+use jsonwebtoken::{decode, DecodingKey, TokenData, Validation};
+use serde::{Deserialize, Serialize};
+use std::env;
 use uuid::Uuid;
 
 #[derive(Debug, Serialize, Deserialize)]

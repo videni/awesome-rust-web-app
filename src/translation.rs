@@ -1,11 +1,10 @@
-use unic_langid::{LanguageIdentifier, langid};
-use fluent_templates::{Loader, static_loader};
+use fluent_templates::{static_loader, Loader};
+use unic_langid::{langid, LanguageIdentifier};
 
-const US_ENGLISH: LanguageIdentifier = langid!("en-US");
-const SIMPLE_CHINESE: LanguageIdentifier = langid!("zh-CN");
+pub static FALLBACK_LANGUAGE: LanguageIdentifier = langid!("en-US");
 
 static_loader! {
-    static LOCALES = {
+    pub static LOCALES = {
         locales: "./translations",
         fallback_language: "en-US",
         // Optional: A fluent resource that is shared with every locale.

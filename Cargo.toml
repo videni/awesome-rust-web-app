@@ -4,9 +4,10 @@ version = "0.1.0"
 authors = ["Vidy Videni <vidy.videni@gmail.com>"]
 edition = "2018"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
-
 [dependencies]
+actix-rt = "^2.2"
+actix-service = "^2.0.0"
+actix-web = "4.0.0-beta.6"
 oauth2 = { version = "3.0", features = ["futures-01"] }
 diesel = { version = "1.4.6", features = ["postgres", "r2d2", "chrono",  "uuidv07", "serde_json"] }
 uuid = { version = "0.8", features = ["serde", "v4"] }
@@ -18,12 +19,8 @@ futures = "0.3.13"
 dotenv = "0.15.0"
 env_logger = "0.8.3"
 log = "0.4"
-actix = "0.10"
-actix-rt = "1.1.1"
-actix-web = "3.3.2"
-actix-service = "^1.0.6"
 num_cpus = "1.13.0"
-actix-cors = "0.5.4"
+# actix-cors = "0.6.0-beta.1"
 thiserror = "1.0.24"
 libreauth = "0.14.0"
 lazy_static = "1.4.0"
@@ -36,3 +33,4 @@ async-trait = "0.1.50"
 fluent-templates = "0.6.1"
 fluent-langneg = "0.13.0"
 unic-langid = { version = "0.9.0", features = ["macros"] }
+language-tags = "0.3.1"

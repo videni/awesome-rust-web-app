@@ -1,19 +1,14 @@
-use actix_web::{
-    error::ResponseError, 
-    http::StatusCode, 
-    HttpResponse
-};
-use actix::MailboxError;
+use actix_web::{dev::Body, error::ResponseError, http::StatusCode, BaseHttpResponse};
 use diesel::{
     r2d2::PoolError,
     result::{DatabaseErrorKind, Error as DieselError},
 };
 use jsonwebtoken::errors::{Error as JwtError, ErrorKind as JwtErrorKind};
 use libreauth::pass::ErrorCode as PassErrorCode;
-use serde_json::{Map as JsonMap, Value as JsonValue, json};
+use serde_json::{json, Map as JsonMap, Value as JsonValue};
 use std::convert::From;
-use validator::ValidationErrors;
 use thiserror::Error;
+use validator::ValidationErrors;
 
 #[derive(Error, Debug)]
 pub enum Error {
@@ -45,27 +40,23 @@ pub enum Error {
 // the ResponseError trait lets us convert errors to http responses with appropriate data
 // https://actix.rs/docs/errors/
 impl ResponseError for Error {
-    fn error_response(&self) -> HttpResponse {
+    fn error_response(&self) -> BaseHttpResponse<Body> {
         match *self {
-            Error::Unauthorized(ref message) => HttpResponse::Unauthorized().json(message),
-            Error::Forbidden(ref message) => HttpResponse::Forbidden().json(message),
-            Error::NotFound(ref message) => HttpResponse::NotFound().json(message),
+            Error::Unauthorized(ref message) => {
+                BaseHttpResponse::build(StatusCode::UNAUTHORIZED).finish()
+            }
+            Error::Forbidden(ref message) => {
+                BaseHttpResponse::build(StatusCode::FORBIDDEN).finish()
+            }
+            Error::NotFound(ref message) => BaseHttpResponse::not_found(),
             Error::UnprocessableEntity(ref message) => {
-                HttpResponse::build(StatusCode::UNPROCESSABLE_ENTITY).json(message)
-            },
+                BaseHttpResponse::build(StatusCode::UNPROCESSABLE_ENTITY).finish()
+            }
             Error::ValidationFailed(ref message) => {
-                HttpResponse::build(StatusCode::BAD_REQUEST).json(message)
+                BaseHttpResponse::build(StatusCode::BAD_REQUEST).finish()
             }
-            Error::InternalServerError => {
-                HttpResponse::InternalServerError().json("Internal Server Error")
-            }
+            Error::InternalServerError => BaseHttpResponse::internal_server_error(),
         }
-    }
-}
-
-impl From<MailboxError> for Error {
-    fn from(_error: MailboxError) -> Self {
-        Error::InternalServerError
     }
 }
 

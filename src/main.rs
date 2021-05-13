@@ -4,25 +4,26 @@ extern crate diesel;
 extern crate thiserror;
 #[macro_use]
 extern crate log;
-#[macro_use]
-extern crate actix_cors;
+// #[macro_use]
+// extern crate actix_cors;
 #[macro_use]
 extern crate lazy_static;
 
+use actix_web::HttpServer;
 use std::env;
-use actix_web::{ HttpServer };
 
-pub mod service;
-pub mod model;
-pub mod message;
-pub mod message_handler;
-pub mod schema;
-pub mod db;
-pub mod error;
-pub mod prelude;
 pub mod app;
 pub mod controller;
+pub mod db;
+pub mod error;
+pub mod message;
+pub mod message_handler;
+pub mod middleware;
+pub mod model;
+pub mod prelude;
 pub mod route;
+pub mod schema;
+pub mod service;
 pub mod translation;
 
 #[actix_web::main]
@@ -31,7 +32,7 @@ async fn main() -> std::io::Result<()> {
 
     let bind_address = env::var("BIND_ADDRESS").expect("BIND_ADDRESS is not set");
 
-    HttpServer::new(||app::boot())
+    HttpServer::new(|| app::create())
         .bind(&bind_address)
         .unwrap_or_else(|_| panic!("Could not bind server to address {}", &bind_address))
         .run()
