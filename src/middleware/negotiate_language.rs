@@ -3,14 +3,12 @@ use actix_web::{dev::{Service, ServiceRequest, ServiceResponse, Transform}, http
 use actix_web::Error;
 use actix_web::{
     http,
-    http::header::AcceptLanguage,
     http::header::HeaderValue,
 };
 use futures::future::{ok, Ready};
 use futures::Future;
-use std::{borrow::BorrowMut, task::{Context, Poll}};
-use std::{pin::Pin, str::FromStr};
-use unic_langid::LanguageIdentifier;
+use std::{task::{Context, Poll}};
+use std::{pin::Pin};
 pub use super::negotiator::Negotiator;
 
 static NEGOTIATOR: Negotiator = Negotiator {
