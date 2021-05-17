@@ -44,3 +44,13 @@ where T: AsRef<str>
     }
 }
 
+impl<'a, T> Default for Translator<'a, T>
+where T: AsRef<str>
+{
+    fn default() -> Self {
+        Self {
+            locale: &FALLBACK_LANGUAGE,
+            _phantom:  PhantomData
+        }
+    }
+}
