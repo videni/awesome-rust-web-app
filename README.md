@@ -2,37 +2,17 @@ Awesome Rust Web App
 ===================
 
 This project shows you how to develop Rust web application by implementing a simple blog management system.
+but it is not a simple toy, I try to implement most common features for website development, check the [Features](./docs/features.md) doc for if a feature you want is implemented.
 
 ## Requirements
 
 * Actix-web
 * Postgresql
 
-## Features 
+## [Features](./docs/features.md)
 
-* [x] Follow DDD patterns
-* [x] Integration test sample
-* [x] Using Postgresql instead of MySQL
-  
-  Sorry I don't use MySQL, uuid is internally handled by Postgresql, I need a way to create the id for an entity before persisting it into database.
+All features included in this package.
 
-* Rollback transactinon for functional test
-* Repository for database operations
-* Model for business logic
-* JWT Authentication
-* Integrate GraphQL
-* [x] Multiple languages
-  
-  * [x] [Fluent](https://blog.logrocket.com/rust-internationalization-localization-and-translation/#gettext-rs)
-  It seems Fluent is more promising for website, check the link for details.
-
-  * [x]  Negotiate language ontop of Fluent
-  * [ ]  Allow to translate for validator
-
-* Dependency injection
-  
-  [Shaku](https://docs.rs/shaku/0.6.1/shaku/guide/index.html) Shaku is a compile time dependency injection Rust library
-  
 ## Getting started
 
 * Create .env
