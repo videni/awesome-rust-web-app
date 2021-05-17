@@ -15,15 +15,17 @@ This project shows you how to develop Rust web application by implementing a sim
 * [x] Using Postgresql instead of MySQL
   
   Sorry I don't use MySQL, uuid is internally handled by Postgresql, I need a way to create the id for an entity before persisting it into database.
-* Rollback transactino for functional test
+
+* Rollback transactinon for functional test
 * Repository for database operations
 * Model for business logic
 * JWT Authentication
 * Integrate GraphQL
-* Mutiple languages
+* [x] Multiple languages
   
   [Fluent](https://blog.logrocket.com/rust-internationalization-localization-and-translation/#gettext-rs)
   It seems Fluent is more promising for website, check the link for details.
+
 * Dependency injection
   
   [Shaku](https://docs.rs/shaku/0.6.1/shaku/guide/index.html) Shaku is a compile time dependency injection Rust library
