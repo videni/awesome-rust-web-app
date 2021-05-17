@@ -1,2 +1,2 @@
-valid-user-name = Username must be 6-30 charaters long
-valid-password = Password must be 8-30 chracters long
+valid-user-name = 用户名6-30字符长
+valid-password = 密码必须8-30字符长

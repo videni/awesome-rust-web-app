@@ -23,8 +23,11 @@ This project shows you how to develop Rust web application by implementing a sim
 * Integrate GraphQL
 * [x] Multiple languages
   
-  [Fluent](https://blog.logrocket.com/rust-internationalization-localization-and-translation/#gettext-rs)
+  * [x] [Fluent](https://blog.logrocket.com/rust-internationalization-localization-and-translation/#gettext-rs)
   It seems Fluent is more promising for website, check the link for details.
+
+  * [x]  Negotiate language ontop of Fluent
+  * [ ]  Allow to translate for validator
 
 * Dependency injection
   

@@ -52,7 +52,7 @@ pub struct Register {
 }
 
 // Check if username is taken, it is best to do this
-// using a custom validator by which I don't find a way to pass
+// using a custom validator But I didn't find a way to pass
 // db connection, so let use this workaround instead.
 fn validate_user_exists(username: &str, conn: &ConnectionPool) -> Result<(), ValidationErrors> {
     use crate::schema::user::{columns, table};
@@ -63,7 +63,7 @@ fn validate_user_exists(username: &str, conn: &ConnectionPool) -> Result<(), Val
         diesel::select(exists(table.filter(columns::username.eq(username)))).get_result(conn);
     if let Ok(true) = exists {
         let mut errors = ValidationErrors::new();
-        errors.add("username", ValidationError::new("Username is taken"));
+        errors.add("username", ValidationError::new("usename-is-taken"));
 
         return Err(errors);
     }
