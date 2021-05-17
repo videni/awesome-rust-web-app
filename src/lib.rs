@@ -21,4 +21,3 @@ pub mod prelude;
 pub mod route;
 pub mod schema;
 pub mod service;
-pub mod translation;

@@ -24,7 +24,6 @@ pub mod prelude;
 pub mod route;
 pub mod schema;
 pub mod service;
-pub mod translation;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
